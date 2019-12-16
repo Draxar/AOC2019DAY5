@@ -40,7 +40,7 @@ def processCode(itr):
     ind3 = program[itr+3]
 
   # process code
-
+ 
   if code == 99:
     return -1
   if code == 1:
