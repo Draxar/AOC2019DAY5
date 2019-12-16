@@ -21,43 +21,64 @@ def processCode(itr):
   global program
   code = program[itr]
   p1, p2, p3, code = parseCode(code)
-  
-  #set modes
+  if code == 99:
+    return "quit"
 
+  # process code
+  # 1 parameter
   if p1 == 1:
     ind1 = itr+1
   else:
     ind1 = program[itr+1]
-
+  if code == 3:
+    inp = 5 #only input for this part of task
+    program[ind1] = inp
+    return 2
+  if code == 4:
+    print(str(program[ind1]))
+    return 2
+  # 2 parameters  
   if p2 == 1:
     ind2 = itr+2
   else:
     ind2 = program[itr+2]
-
+  if code == 5:
+    if program[ind1] != 0:
+      return program[ind2] - itr
+    else:
+      return 3
+  if code == 6:
+    if program[ind1] == 0:
+      return program[ind2] - itr
+    else:
+      return 3 
+  # 3 parameters  
   if p3 == 1:
     ind3 = itr+3
   else:
     ind3 = program[itr+3]
-
-  # process code
- 
-  if code == 99:
-    return -1
   if code == 1:
     program[ind3] = program[ind1] + program[ind2]
     return 4
   if code == 2:
     program[ind3] = program[ind1] * program[ind2]
     return 4
-  if code == 3:
-    inp = 1 #only input for this part of task
-    program[ind1] = inp
-    return 2
-  if code == 4:
-    print(str(program[ind1]))
-    return 2
+  if code == 7:
+    if program[ind1] < program[ind2]:
+      program[ind3] = 1
+      return 4
+    program[ind3] = 0
+    return 4
+  if code == 8:
+    if program[ind1] == program[ind2]:
+      program[ind3] = 1
+      return 4
+    program[ind3] = 0
+    return 4
+
   print("BAD CODE:")
   print(str(code))
+  return "quit"
 
 
 
@@ -71,7 +92,7 @@ process = True
 #process program
 while process:
   move = processCode(itr)
-  if move == -1:
+  if move == "quit":
     process = False
   else :
     itr += move
